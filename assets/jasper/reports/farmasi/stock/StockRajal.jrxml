@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Stock_Rajal" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d3655d4b-6dfe-40ca-a268-3651704a30b3">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="NamaBarang" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     stock_rajal.`Nama` AS stock_rajal_Nama,
+     stock_rajal.`Jumlah` AS stock_rajal_Jumlah,
+     stock_rajal.`Limit` AS stock_rajal_Limit,
+     stock_rajal.`Kemasan` AS stock_rajal_Kemasan
+FROM
+     `stock_rajal` stock_rajal
+WHERE
+	Nama = $P{NamaBarang}]]>
+	</queryString>
+	<field name="stock_rajal_Nama" class="java.lang.String"/>
+	<field name="stock_rajal_Jumlah" class="java.lang.String"/>
+	<field name="stock_rajal_Limit" class="java.lang.String"/>
+	<field name="stock_rajal_Kemasan" class="java.lang.String"/>
+	<background>
+		<band height="555" splitType="Stretch">
+			<rectangle>
+				<reportElement x="146" y="105" width="503" height="450" uuid="f6ff3364-0a3f-42d0-a504-ebcb6ff04eda"/>
+			</rectangle>
+			<line>
+				<reportElement x="288" y="105" width="1" height="450" uuid="faa30376-2656-4201-8741-55ecd11e6a01"/>
+			</line>
+			<line>
+				<reportElement x="395" y="105" width="1" height="450" uuid="50ec9924-9bca-405e-908e-2b2c9fdae7a7"/>
+			</line>
+			<line>
+				<reportElement x="505" y="105" width="1" height="450" uuid="babca839-fcfa-46a7-b2bd-61304cf28a40"/>
+			</line>
+		</band>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="208" y="24" width="380" height="55" uuid="99cb733e-30c0-4b27-a62b-e1b8c63bb6fd"/>
+				<textElement>
+					<font size="28" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Laporan Stock Rawat Jalan]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="31" splitType="Stretch">
+			<staticText>
+				<reportElement x="145" y="1" width="143" height="20" uuid="6b3cd962-ba93-406e-a27c-4ce4b0073af9"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nama]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="288" y="0" width="108" height="22" uuid="58119ad7-5437-42d8-bf92-faba69859aad"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Jumlah]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="396" y="1" width="109" height="20" uuid="6b53cd23-2aa5-4466-9277-615d3d9eb259"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Limit]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="504" y="1" width="145" height="20" uuid="d7c8b92d-9b43-466e-9813-c4dfdeb55a0d"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Kemasan]]></text>
+			</staticText>
+			<line>
+				<reportElement x="145" y="21" width="503" height="1" uuid="eb1c9db5-9576-4db0-a8ad-b8d02f1fcfcd"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="29" splitType="Stretch">
+			<textField>
+				<reportElement x="145" y="0" width="143" height="20" uuid="cf3f51f7-93c6-413d-9d24-fbc03b626d27"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{stock_rajal_Nama}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="396" y="0" width="110" height="20" uuid="e3317f9f-3e30-4b14-bc2c-7fa9bed62568"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{stock_rajal_Limit}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="505" y="0" width="144" height="20" uuid="26766b9d-41d3-494c-8c16-969ef4d22c6e"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{stock_rajal_Kemasan}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="288" y="0" width="108" height="20" uuid="1914d556-1995-4782-a82f-314544927ab8"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{stock_rajal_Jumlah}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

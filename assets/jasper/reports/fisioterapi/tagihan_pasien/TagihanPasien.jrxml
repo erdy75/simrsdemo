@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="TagihanPasien" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9c3c320f-3ca4-4178-9cd9-dbcc121f27ac">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="NoRM" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT keterangan uraian,harga_satuan tarif,total qty,harga_satuan*total total,poli,id_dokter dokter,tgl,jam
+FROM faktur_detail_prebayar WHERE cib = $P{NoRM}
+
+UNION
+
+SELECT nama_barang uraian,harga tarif,kuantitas qty,harga*kuantitas total,SUBSTR(site_apotek,1,6) poli,id_dokter dokter,tanggal tgl,jam
+FROM faktur_apotik_prebayar WHERE cib = $P{NoRM}]]>
+	</queryString>
+	<field name="uraian" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tarif" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="qty" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="total" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="poli" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="dokter" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tgl" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="jam" class="java.sql.Time">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band height="555" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="105" width="802" height="450" uuid="e4035f90-698f-48ff-bf08-6c930493cb60"/>
+			</rectangle>
+			<line>
+				<reportElement x="136" y="105" width="1" height="450" uuid="f3a2936c-d00a-481a-a5e6-7b74ecd37206"/>
+			</line>
+			<line>
+				<reportElement x="215" y="105" width="1" height="450" uuid="9bbe6732-9a19-42af-834f-2dff5c65de72"/>
+			</line>
+			<line>
+				<reportElement x="268" y="105" width="1" height="450" uuid="81dcdd53-b275-4cf9-8565-63d90bb09bf9"/>
+			</line>
+			<line>
+				<reportElement x="347" y="105" width="1" height="450" uuid="89a6d210-c786-485f-a112-0c18a1f77684"/>
+			</line>
+			<line>
+				<reportElement x="485" y="105" width="1" height="450" uuid="146c02ec-1143-4e23-8a80-58def0931fbc"/>
+			</line>
+			<line>
+				<reportElement x="666" y="105" width="1" height="450" uuid="dbae4c60-a5e7-4bad-a129-67671e76f292"/>
+			</line>
+			<line>
+				<reportElement x="730" y="105" width="1" height="450" uuid="b9ebc913-9b6e-4d0d-9e2f-92aff149bded"/>
+			</line>
+		</band>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="235" y="24" width="328" height="55" uuid="bc444eb8-2b16-478c-9d6e-64c00c358ea6"/>
+				<textElement>
+					<font size="28" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Laporan Tagihan Pasien]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="126" height="20" uuid="2d3a2251-8e05-4d7d-9c70-1c8d917e72fe"/>
+				<textElement textAlignment="Center">
+					<font isBold="true" isItalic="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Uraian]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="136" y="0" width="79" height="20" uuid="3361eac0-fc5e-4bf1-9d9a-bca114ab98e5"/>
+				<textElement textAlignment="Center">
+					<font isBold="true" isItalic="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Tarif]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="215" y="0" width="53" height="20" uuid="5e12c4fb-c606-479e-8276-f9b8ac2aeacc"/>
+				<textElement textAlignment="Center">
+					<font isBold="true" isItalic="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Qty]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="268" y="0" width="79" height="20" uuid="10b9517c-c506-402c-9969-25ab535d103e"/>
+				<textElement textAlignment="Center">
+					<font isBold="true" isItalic="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="347" y="0" width="138" height="20" uuid="8455064a-d7fd-4a62-b27c-ae03531753ea"/>
+				<textElement textAlignment="Center">
+					<font isBold="true" isItalic="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Unit/Poli]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="485" y="0" width="169" height="20" uuid="bf17c33b-3c1f-4770-9231-3dca43c507fe"/>
+				<textElement textAlignment="Center">
+					<font isBold="true" isItalic="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Dokter]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="665" y="0" width="65" height="20" uuid="131bcb5c-3a09-48c1-b354-030960a159fb"/>
+				<textElement textAlignment="Center">
+					<font isBold="true" isItalic="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Tanggal]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="730" y="0" width="70" height="20" uuid="2e3bbb2b-ac50-4377-b133-211d700d71fb"/>
+				<textElement textAlignment="Center">
+					<font isBold="true" isItalic="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Jam]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="20" width="800" height="1" uuid="01c71ae6-d014-4c90-b1db-fd89b4ade2c2"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="40" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="126" height="20" uuid="9732f593-6ca6-4b72-9122-2325a5a6d096"/>
+				<textElement textAlignment="Center">
+					<font isBold="true" isItalic="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{uraian}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="136" y="0" width="79" height="20" uuid="4f739e61-0a44-4ee0-992d-d95f91c7dbf8"/>
+				<textElement textAlignment="Center">
+					<font isBold="true" isItalic="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tarif}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="215" y="0" width="53" height="20" uuid="c0787c5e-225f-4476-80e2-daea00f5ee6e"/>
+				<textElement textAlignment="Center">
+					<font isBold="true" isItalic="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{qty}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="347" y="0" width="138" height="20" uuid="6f200f26-f28c-4382-a8b9-957a7b8ecb43"/>
+				<textElement textAlignment="Center">
+					<font isBold="true" isItalic="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{poli}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="485" y="0" width="169" height="20" uuid="99c3a292-0165-4b84-b2e7-3a6243133749"/>
+				<textElement textAlignment="Center">
+					<font isBold="true" isItalic="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dokter}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="665" y="0" width="65" height="20" uuid="d9462632-9cb3-4378-9885-fb7d2dc34a7e"/>
+				<textElement textAlignment="Center">
+					<font isBold="true" isItalic="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tgl}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="730" y="0" width="70" height="20" uuid="c83781a6-9fac-4146-bd30-68686670ffe8"/>
+				<textElement textAlignment="Center">
+					<font isBold="true" isItalic="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{jam}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="268" y="0" width="79" height="20" uuid="d8d999d5-8654-4f53-ba67-6103e93a5bb5"/>
+				<textElement textAlignment="Center">
+					<font isBold="true" isItalic="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

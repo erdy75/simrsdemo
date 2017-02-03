@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>js-grid.js</title>
+    <link rel="stylesheet" href="http://yandex.st/highlightjs/7.5/styles/tomorrow.min.css">
+    <link rel="stylesheet" href="../src/js-grid.css">
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="stuff/project.css">
+    <script src="http://yandex.st/highlightjs/7.5/highlight.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
+    <script src="../src/js-grid.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            hljs.initHighlightingOnLoad();
+
+            hljs.tabReplace = '    '; // 4 spaces
+
+            // Example 1.
+            $('#grid1').jsGrid({
+                source: [
+                    { id: '1', name: 'Item 1', count: '10' },
+                    { id: '2', name: 'Item 2', count: '20' },
+                    { id: '3', name: 'Item 3', count: '30' }
+                ]
+            });
+
+            // Example 2.
+            $('#grid2').jsGrid({
+                source: [
+                    { id: '1', name: 'Item 1', count: '10' },
+                    { id: '2', name: 'Item 2', count: '20' },
+                    { id: '3', name: 'Item 3', count: '30' }
+                ],
+                render: {
+                    name: function(column, row) {
+                        return 'Name is: ' + row.name;
+                    },
+                    count: function(column, row) {
+                        return $('<input type="number">').val(row.count);
+                    }
+                }
+            });
+
+            // Example 3.
+            $('#grid3').jsGrid({
+                source: 'data.json',
+                prepareResponse: function(page, data) {
+                    for (var i = 0; i < data.list.length; i++)
+                        data.list[i].name = '# ' + data.list[i].name;
+                    return data;
+                }
+            });
+
+            // Example 4.
+            $('#grid4').jsGrid({
+                source: [
+                    { id: '1', name: 'Item 1', count: '10' },
+                    { id: '2', name: 'Item 2', count: '20' },
+                    { id: '3', name: 'Item 3', count: '30' },
+                    { id: '4', name: 'Item 4', count: '40' },
+                    { id: '5', name: 'Item 5', count: '50' },
+                    { id: '6', name: 'Item 6', count: '60' },
+                    { id: '7', name: 'Item 7', count: '70' }
+                ],
+                countPerPage: 3,
+                renderPagination: function(jsGrid, total, countPerPage, start, page, totalPages) {
+                    var $ul = $('#grid4pagination');
+                    $ul.empty();
+                    for (var i = 0; i < totalPages; i++) {
+                        var pageHandler =
+                                $('<a href="#" />')
+                                        .data('page', i)
+                                        .text(i + 1)
+                                        .click(function() {
+                                            jsGrid.load($(this).data('page'));
+                                            return false;
+                                        }
+                                );
+                        $ul.append(
+                                $('<li style="display: inline-block; margin-right: 5px;" />')
+                                        .append(pageHandler));
+                    }
+                }
+            });
+
+            // Example 5.
+            $('#grid5').jsGrid({
+                source: [
+                    { id: '1', name: 'Item 1', count: '10' },
+                    { id: '2', name: 'Item 2', count: '20' },
+                    { id: '3', name: 'Item 3', count: '30' }
+                ],
+                filter: function(row) {
+                    return row.id != '2';
+                }
+            });
+
+            // Example 6.
+            $('#grid6').jsGrid({
+                source: [
+                    { id: '1', name: 'Item 1', count: '10' },
+                    { id: '2', name: 'Item 2', count: '20' },
+                    { id: '3', name: 'Item 3', count: '30' }
+                ],
+                refineRow: function($tr, row) {
+                    if (row.id == '2') {
+                        $tr.css('background-color', '#f9d959');
+                    }
+                }
+            });
+
+            $('#grid7').jsGrid({
+                source: [
+                    { id: '1', name: 'Item 1', count: '10' },
+                    { id: '2', name: 'Item 2', count: '20' },
+                    { id: '3', name: 'Item 3', count: '30' }
+                ],
+                schema: [
+                    {id: 'id', width: '110px', title: 'ID'},
+                    {id: 'name', width: '125px', title: 'Name'},
+                    {id: 'count', width: '200px', title: 'Count'}
+                ]
+            });
+
+            jsGrid8 = $('#grid8').jsGrid({
+                source: [
+                    { id: '1', name: 'Item 1', count: '10' },
+                    { id: '2', name: 'Item 2', count: '20' },
+                    { id: '3', name: 'Item 3', count: '30' }
+                ],
+                selectable: true
+            });
+
+            $('#grid8').on('selection-changed', function(event, rows, $tr) {
+                $('#selectedLabel').text('Selected: ' + (rows.length > 0 ? rows[0].name : 'None'));
+            });
+
+            $('#grid9').jsGrid({
+                source: [
+                    { id: '1', name: 'Item 1', count: '10' },
+                    { id: '2', name: 'Item 2', count: '20' },
+                    { id: '3', name: 'Item 3', count: '30' }
+                ]
+            });
+
+            $('#grid10').jsGrid({
+                source: [
+                    { id: '1', name: 'Item 1', count: '10' },
+                    { id: '2', name: 'Item 2', count: '20' },
+                    { id: '3', name: 'Item 3', count: '30' }
+                ],
+                schema: [
+                    { sortable: true, order: 'desc', id: 'id', width: '110px', title: 'ID' },
+                    {                 id: 'name', width: '125px', title: 'Name' },
+                    { sortable: true, id: 'count', width: '200px', title: 'Count' }
+                ]
+            });
+        });
+    </script>
+</head>
+<body>
+<div class="head">
+    <div class="container">
+        <div>
+            <div class="head_title" style="margin: 20px 0;">
+                Licensed under MIT
+                <div style="float: right">
+                    <span>
+                        <iframe src="http://ghbtns.com/github-btn.html?user=atott&repo=js-grid&size=large&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="145" height="30"></iframe>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="text-center" style="margin-bottom: 40px;">
+            <div style="margin: 40px;">
+                <img src="stuff/js-grid-logo.png">
+            </div>
+            <a class="button" href="https://github.com/atott/js-grid">Get evil js-grid</a>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="contents">
+        <div class="row">
+            <div class="col-md-6 text-right">
+                <ul>
+                    <li><a href="#get-started">get started <i>§</i></a></li>
+                    <li><a href="#render-cell">custom render cells <i>§</i></a></li>
+                    <li><a href="#remote-data">remote data <i>§</i></a></li>
+                    <li><a href="#select-rows">select rows <i>§</i></a></li>
+                    <li><a href="#filter-rows">filter rows <i>§</i></a></li>
+                </ul>
+            </div>
+            <div class="col-md-6 text-left">
+                <ul>
+                    <li><a href="#refine-rows"><i>§</i> refine rows</a></li>
+                    <li><a href="#pagination-support"><i>§</i> pagination support</a></li>
+                    <li><a href="#sort-rows"><i>§</i> sort rows</a></li>
+                    <li><a href="#api"><i>§</i> api</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+    <h2>
+        <span class="heading__text">
+            get started
+            <a class="heading__anchor" name="date-picker" href="#get-started">§</a>
+        </span>
+    </h2>
+    <p>
+        Add code below to head section of your HTML page.
+    </p>
+<pre><code>&lt;!-- JQuery library <a href="http://jquery.com/">http://jquery.com/</a> --&gt;
+&lt;script src=&quot;jquery.js&quot;&gt;&lt;/script&gt;
+
+&lt;!-- js-grid resources --&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;js-grid.css&quot;&gt;
+&lt;script src=&quot;js-grid.js&quot;&gt;&lt;/script&gt;</code></pre>
+
+
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#html-schema" data-toggle="tab">with HTML schema</a></li>
+        <li><a href="#js-schema" data-toggle="tab">with JS schema</a></li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div class="tab-pane active" id="html-schema">
+            <p>
+                Add html code below to body section of your HTML page.
+            </p>
+<pre><code class="xml">&lt;table id=&quot;grid&quot; class=&quot;table&quot;&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th data-width=&quot;110px&quot; data-id=&quot;id&quot;&gt;ID&lt;/th&gt;
+            &lt;th data-width=&quot;125px&quot; data-id=&quot;name&quot;&gt;Name&lt;/th&gt;
+            &lt;th data-width=&quot;200px&quot; data-id=&quot;count&quot;&gt;Count&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;&lt;/tbody&gt;
+&lt;/table&gt;</code></pre>
+            <p>
+                Add JS code below to body onload event handler.
+            </p>
+            <div class="example">
+<pre><code>$('#grid').jsGrid({
+    source: [
+        { id: '1', name: 'Item 1', count: '10' },
+        { id: '2', name: 'Item 2', count: '20' },
+        { id: '3', name: 'Item 3', count: '30' }
+    ]
+});</code></pre>
+                <div>
+                    <table id="grid1" class="table">
+                        <thead>
+                        <tr>
+                            <th data-width="110px" data-id="id">ID</th>
+                            <th data-width="125px" data-id="name">Name</th>
+                            <th data-width="200px"  data-id="count">Count</th>
+                        </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane" id="js-schema">
+            <p>
+                Add html code below to body section of your HTML page.
+            </p>
+<pre><code class="xml">&lt;table id=&quot;grid&quot; class=&quot;table&quot;&gt;&lt;/table&gt;</code></pre>
+            <p>
+                Add JS code below to body onload event handler.
+            </p>
+            <div class="example">
+<pre><code>$('#grid').jsGrid({
+    source: [
+        { id: '1', name: 'Item 1', count: '10' },
+        { id: '2', name: 'Item 2', count: '20' },
+        { id: '3', name: 'Item 3', count: '30' }
+    ],
+    schema: [
+        { id: 'id', width: '110px', title: 'ID' },
+        { id: 'name', width: '125px', title: 'Name' },
+        { id: 'count', width: '200px', title: 'Count' }
+    ]
+});</code></pre>
+                <div>
+                    <table id="grid7" class="table"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <h2>
+        <span class="heading__text">
+            custom render cells
+            <a class="heading__anchor" name="render-cell" href="#render-cell">§</a>
+        </span>
+    </h2>
+    <div class="example">
+<pre><code>$('#grid').jsGrid({
+    source: [
+        { id: '1', name: 'Item 1', count: '10' },
+        { id: '2', name: 'Item 2', count: '20' },
+        { id: '3', name: 'Item 3', count: '30' }
+    ],
+    render: {
+        name: function(column, row) {
+            return 'Name is: ' + row.name;
+        },
+        count: function(column, row) {
+            return $('&lt;input type="number"&gt;').val(row.count);
+        }
+    }
+});</code></pre>
+        <div>
+            <table id="grid2" class="table">
+                <thead>
+                <tr>
+                    <th data-width="110px" data-id="id">ID</th>
+                    <th data-width="125px" data-id="name">Name</th>
+                    <th data-width="200px"  data-id="count">Count</th>
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+
+
+
+    <h2>
+        <span class="heading__text">
+            remote data
+            <a class="heading__anchor" name="remote-data" href="#remote-data">§</a>
+        </span>
+    </h2>
+
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#remote-without-paging" data-toggle="tab">without pagination</a></li>
+        <li><a href="#remote-with-paging" data-toggle="tab">with pagination</a></li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div class="tab-pane active" id="remote-without-paging">
+
+    <div class="example">
+<pre><code class="javascript">$('#grid').jsGrid({
+    source: 'http://atott.ru/js-grid/data.json'
+});</code></pre>
+        <div>
+            <table id="grid3" class="table">
+                <thead>
+                <tr>
+                    <th data-width="110px" data-id="id">ID</th>
+                    <th data-width="125px" data-id="name">Name</th>
+                    <th data-width="200px"  data-id="count">Count</th>
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <p>
+        Here it is <a href="http://atott.ru/js-grid/data.json">http://atott.ru/js-grid/data.json</a> answer
+    </p>
+<pre><code class="json">{
+    "list": [
+        { "id": "1", "name": "Remote Item 1", "count": "10" },
+        { "id": "2", "name": "Remote Item 2", "count": "20" },
+        { "id": "3", "name": "Remote Item 3", "count": "30" }
+    ]
+}
+</code></pre>
+        </div>
+        <div class="tab-pane" id="remote-with-paging">
+            <p>
+                Initalize js-grid instruction:
+            </p>
+<pre><code class="javascript">$('#grid').jsGrid({
+    source: 'http://atott.ru/js-grid/some-service.json',
+    countPerPage: 3
+});</code></pre>
+            <p>
+                Request params:
+            </p>
+<pre><code class="javascript">{
+    count: 3,  // Service should return 3 rows.
+    start: 0   // Number of the first row to return.
+}</code></pre>
+            <p>
+                <span class="glyphicon glyphicon-thumbs-up"></span> Note that you can modify the request params. For example:
+            </p>
+<pre><code class="javascript">$('#grid').jsGrid({
+    source: 'http://atott.ru/js-grid/some-service.json',
+    countPerPage: 3,
+    prepareRequest: function(page, data) {
+        return {
+            url: 'http://some-service/page/' + page, // You can change url of request.
+            data: {                                  // You can change request parameters.
+                start: data.start,
+                countPerPage: data.count             // Rename <b>count</b> param to <b>countPerPage</b>.
+            },
+            method: 'POST'                           // You can сhange request method.
+        }
+    }
+});</code></pre>
+            <p>
+                Service response:
+            </p>
+<pre><code class="javascript">{
+    "list": [    // Set of rows starting from the <b>start</b> row.
+        { "id": "1", "name": "Remote Item 1", "count": "10" },
+        { "id": "2", "name": "Remote Item 2", "count": "20" },
+        { "id": "3", "name": "Remote Item 3", "count": "30" }
+    ],
+    "count": 46  // The total number of rows.
+}
+</code></pre>
+            <p>
+                <span class="glyphicon glyphicon-thumbs-up"></span> Note that you can modify the service response. For example:
+            </p>
+<pre><code class="javascript">$('#grid').jsGrid({
+    source: 'http://atott.ru/js-grid/some-service.json',
+    countPerPage: 3,
+    prepareResponse: function(page, data) {
+        for (var i = 0; i < data.list.length; i++)
+            data.list[i].name = '# ' + data.list[i].name;
+        return data;
+    }
+});</code></pre>
+        </div>
+    </div>
+
+
+
+
+
+    <h2>
+        <span class="heading__text">
+            pagination support
+            <a class="heading__anchor" name="pagination-support" href="#pagination-support">§</a>
+        </span>
+    </h2>
+    <div class="example">
+<pre><code>$('#grid4').jsGrid({
+    source: [
+        { id: '1', name: 'Item 1', count: '10' },
+        { id: '2', name: 'Item 2', count: '20' },
+        { id: '3', name: 'Item 3', count: '30' },
+        { id: '4', name: 'Item 4', count: '40' },
+        { id: '5', name: 'Item 5', count: '50' },
+        { id: '6', name: 'Item 6', count: '60' },
+        { id: '7', name: 'Item 7', count: '70' }
+    ],
+    countPerPage: 3,
+    renderPagination: function(jsGrid, total, countPerPage, start, page, totalPages) {
+        var $ul = $('#grid4pagination');
+        $ul.empty();
+        for (var i = 0; i < totalPages; i++) {
+            var pageHandler =
+                $('&lt;a href="#" /&gt;')
+                    .data('page', i)
+                    .text(i + 1)
+                    .click(function() {
+                        jsGrid.load($(this).data('page'));
+                        return false;
+                    });
+            $ul.append(
+                $('&lt;li style="display: inline-block; margin-right: 5px;" /&gt;')
+                    .append(pageHandler));
+            }
+        }
+    });</code></pre>
+        <div>
+            <table id="grid4" class="table">
+                <thead>
+                <tr>
+                    <th data-width="110px" data-id="id">ID</th>
+                    <th data-width="125px" data-id="name">Name</th>
+                    <th data-width="200px"  data-id="count">Count</th>
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+        <ul id="grid4pagination" style="list-style: none;"></ul>
+    </div>
+
+
+
+
+
+    <h2>
+        <span class="heading__text">
+            filter rows
+            <a class="heading__anchor" name="filter-rows" href="#filter-rows">§</a>
+        </span>
+    </h2>
+    <div class="example">
+<pre><code>$('#grid').jsGrid({
+    source: [
+        { id: '1', name: 'Item 1', count: '10' },
+        { id: '2', name: 'Item 2', count: '20' },
+        { id: '3', name: 'Item 3', count: '30' }
+    ],
+    filter: function(row) {
+        return row.id != '2';
+    }
+});</code></pre>
+        <div>
+            <table id="grid5" class="table">
+                <thead>
+                <tr>
+                    <th data-width="110px" data-id="id">ID</th>
+                    <th data-width="125px" data-id="name">Name</th>
+                    <th data-width="200px"  data-id="count">Count</th>
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+
+
+    <h2>
+        <span class="heading__text">
+            refine rows
+            <a class="heading__anchor" name="refine-rows" href="#refine-rows">§</a>
+        </span>
+    </h2>
+    <div class="example">
+<pre><code>$('#grid').jsGrid({
+    source: [
+        { id: '1', name: 'Item 1', count: '10' },
+        { id: '2', name: 'Item 2', count: '20' },
+        { id: '3', name: 'Item 3', count: '30' }
+    ],
+    refineRow: function($tr, row) {
+        if (row.id == '2') {
+            $tr.css('background-color', '#f9d959');
+        }
+    }
+});</code></pre>
+        <div>
+            <table id="grid6" class="table">
+                <thead>
+                <tr>
+                    <th data-width="110px" data-id="id">ID</th>
+                    <th data-width="125px" data-id="name">Name</th>
+                    <th data-width="200px"  data-id="count">Count</th>
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <h2>
+        <span class="heading__text">
+            select rows
+            <a class="heading__anchor" name="select-rows" href="#select-rows">§</a>
+        </span>
+    </h2>
+    <div class="example">
+<pre><code>$('#grid').jsGrid({
+    source: [
+        { id: '1', name: 'Item 1', count: '10' },
+        { id: '2', name: 'Item 2', count: '20' },
+        { id: '3', name: 'Item 3', count: '30' }
+    ],
+    selectable: true
+});
+
+$('#grid').on('selection-changed', function(event, rows, $rowNodes) {
+    $('#selectedLabel').text('Selected: ' + (rows.length > 0 ? rows[0].name : 'None'));
+});</code></pre>
+        <div>
+            <table id="grid8" class="table">
+                <thead>
+                <tr>
+                    <th data-width="110px" data-id="id">ID</th>
+                    <th data-width="125px" data-id="name">Name</th>
+                    <th data-width="200px"  data-id="count">Count</th>
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+            <span id="selectedLabel" class="label label-primary">Selected: None</span>
+        </div>
+    </div>
+
+
+
+
+
+    <h2>
+        <span class="heading__text">
+            sort rows
+            <a class="heading__anchor" name="sort-rows" href="#sort-rows">§</a>
+        </span>
+    </h2>
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#sort-with-html-schema" data-toggle="tab">with HTML schema</a></li>
+        <li><a href="#sort-with-js-schema" data-toggle="tab">with JS schema</a></li>
+        <li><a href="#sort-remote" data-toggle="tab">remote sorting</a></li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div class="tab-pane active" id="sort-with-html-schema">
+            <p>ID and Count columns are sortable.</p>
+<pre><code class="xml">&lt;table id=&quot;grid1&quot; class=&quot;table&quot;&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th data-id=&quot;id&quot; data-sortable=&quot;true&quot; data-order=&quot;desc&quot;&gt;ID&lt;/th&gt;
+            &lt;th data-id=&quot;name&quot;&gt;Name&lt;/th&gt;
+            &lt;th data-id=&quot;count&quot; data-sortable=&quot;true&quot;&gt;Count&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;&lt;/tbody&gt;
+&lt;/table&gt;</code></pre>
+            <div class="example">
+<pre><code>$('#grid').jsGrid({
+    source: [
+        { id: '1', name: 'Item 1', count: '10' },
+        { id: '2', name: 'Item 2', count: '20' },
+        { id: '3', name: 'Item 3', count: '30' }
+    ]
+});</code></pre>
+                <div>
+                    <table id="grid9" class="table">
+                        <thead>
+                            <tr>
+                                <th data-sortable="true" data-order="desc" data-id="id">ID</th>
+                                <th data-id="name">Name</th>
+                                <th data-sortable="true" data-id="count">Count</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane" id="sort-with-js-schema">
+            <p>ID and Count columns are sortable.</p>
+            <div class="example">
+<pre><code class="xml">&lt;table id=&quot;grid1&quot; class=&quot;table&quot;&gt;&lt;/table&gt;</code></pre>
+<pre><code>$('#grid').jsGrid({
+    source: [
+        { id: '1', name: 'Item 1', count: '10' },
+        { id: '2', name: 'Item 2', count: '20' },
+        { id: '3', name: 'Item 3', count: '30' }
+    ],
+    schema: [
+        { sortable: true, order: 'desc', id: 'id', title: 'ID' },
+        { id: 'name', title: 'Name' },
+        { sortable: true, id: 'count', title: 'Count' }
+    ]
+});</code></pre>
+                <div>
+                    <table id="grid10" class="table"></table>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane" id="sort-remote">
+            <p>
+                Initalize js-grid instruction (where some columns are sortable):
+            </p>
+<pre><code class="javascript">$('#grid').jsGrid({
+    source: 'http://atott.ru/js-grid/some-service.json',
+});</code></pre>
+            <p>
+                Request params when ID solumn is sorted:
+            </p>
+<pre><code class="javascript">{
+    sortFields: [{
+        field: 'id',
+        direction: 'asc'
+    }]
+}</code></pre>
+            <p>
+                The service should sort the results according to the sortFields and should return answer like this:
+            </p>
+<pre><code class="javascript">{
+    "list": [   // Set of rows sorted according to the <b>sortFields</b>.
+        { "id": "1", "name": "Remote Item 1", "count": "10" },
+        { "id": "2", "name": "Remote Item 2", "count": "20" },
+        { "id": "3", "name": "Remote Item 3", "count": "30" }
+    ],
+    "count": 46 // The total number of rows.
+}
+</code></pre>
+        </div>
+    </div>
+
+
+
+    <h2>
+        <span class="heading__text">
+            api
+            <a class="heading__anchor" name="api" href="#api">§</a>
+        </span>
+    </h2>
+    <pre><code class="javascript">$('#grid').jsGrid({...});
+var jsGrid = $('#grid').data('js-grid');</code></pre>
+
+
+    <h3><span>jsGrid.getSelection()</span></h3>
+    <p>
+        Get array of current selected rows.
+    </p>
+
+    <h3><span>jsGrid.getRows()</span></h3>
+    <p>
+        Get all rows of current page.
+    </p>
+
+    <h3><span>jsGrid.load(page)</span></h3>
+    <p>
+        Reload data.
+        <ul>
+            <li>
+                <b>page</b> - (optional) Page number to load.
+            </li>
+        </ul>
+    </p>
+
+    <h3>
+        <span>jsGrid.refresh()</span>
+    </h3>
+    <p>
+        Refresh current representation of rows without request to server.
+    </p>
+
+    <h3>
+        <span>jsGrid.sort(field, direction)</span>
+    </h3>
+    <p>
+        Sort rows.
+        <ul>
+            <li>
+                <b>field</b> - (required) ID of column to sort.
+            </li>
+        <li>
+            <b>direction</b> - (optional) 'asc' or 'desc'.
+        </li>
+        </ul>
+    </p>
+
+
+    <h2>
+        <span class="heading__text">
+            ;)
+        </span>
+    </h2>
+    <p class="text-center" style="font-size: 24px;">
+        Made by <a href="http://atott.ru/">Atott</a>.
+    </p>
+    <p class="text-center" style="margin-bottom: 60px;">
+        Code licensed under MIT.
+    </p>
+</div>
+</body>
+</html>

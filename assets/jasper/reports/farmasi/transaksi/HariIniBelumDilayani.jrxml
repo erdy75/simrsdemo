@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="HariIniBelumDilayani" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d37abb0d-b927-4a28-b3e9-3562094c969b">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="parameter1" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[new java.lang.Integer(0)]]></defaultValueExpression>
+	</parameter>
+	<parameter name="Nama" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="NoReg" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT poli,cib_pasien,nama,sex,YEAR(CURDATE()) - YEAR(tgl_lahir) AS umur,nama_dokter,tgl_rm,no_upf,inap_jalan
+FROM v_medical
+WHERE isresep_diambil='Belum' AND tgl_rm=DATE(CURDATE())
+AND (nama = $P{Nama})]]>
+	</queryString>
+	<field name="poli" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cib_pasien" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nama" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="sex" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="umur" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nama_dokter" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tgl_rm" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="no_upf" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="inap_jalan" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band height="555" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="105" width="801" height="450" uuid="79146cae-571c-4635-a40f-bf00fed33771"/>
+			</rectangle>
+			<line>
+				<reportElement x="95" y="105" width="1" height="450" uuid="301dece6-b696-4985-b010-33bd64e322fd"/>
+			</line>
+			<line>
+				<reportElement x="182" y="105" width="1" height="450" uuid="3182acb2-1e6e-4d93-99b0-fcfb93320eba"/>
+			</line>
+			<line>
+				<reportElement x="261" y="105" width="1" height="450" uuid="fa1c3d55-dbb9-465e-8005-a74e1713375d"/>
+			</line>
+			<line>
+				<reportElement x="354" y="105" width="1" height="450" uuid="06066bde-5a4b-4caf-9992-c2ff575c00bf"/>
+			</line>
+			<line>
+				<reportElement x="424" y="105" width="1" height="450" uuid="13a7b36c-9acf-4f56-8510-dbc64f049ea1"/>
+			</line>
+			<line>
+				<reportElement x="531" y="105" width="1" height="450" uuid="a5eecb19-41a9-40fe-8094-8bcea79c6e4c"/>
+			</line>
+			<line>
+				<reportElement x="607" y="105" width="1" height="450" uuid="5e1bc58a-2371-475b-b122-8756a75d934f"/>
+			</line>
+			<line>
+				<reportElement x="688" y="105" width="1" height="450" uuid="e593c771-72b1-437f-b142-c338c6fd1633"/>
+			</line>
+		</band>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="179" y="24" width="436" height="55" uuid="71b1be10-2be9-4021-87a3-ee574d150181"/>
+				<textElement>
+					<font size="28" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Laporan Hari Ini Belum Dilayani]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="3" width="95" height="20" uuid="db85539a-8da0-4d28-977c-1113df7ad129"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Poli]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="96" y="2" width="86" height="20" uuid="002ba753-5ca5-49b3-ac9e-816a27fdaef8"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[No RM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="183" y="2" width="78" height="20" uuid="dfaa0c8d-4a36-47a2-b80b-f63af1595292"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Pasien]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="262" y="2" width="92" height="20" uuid="f7f09743-4ee8-4c32-a34f-88fa5f499a7e"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Jenis Kelamin]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="355" y="3" width="70" height="20" uuid="96c3efb9-2071-402f-a4e8-462ec48a7e02"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Umur]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="426" y="3" width="106" height="20" uuid="6b3972ab-74e1-4209-8985-db0b85a381a3"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Dokter]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="532" y="2" width="75" height="20" uuid="b7d04495-2f63-4441-a42b-1a066895ab69"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tanggal]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="609" y="3" width="80" height="20" uuid="04af1f21-4f04-4d45-ba18-f0bc47dd2eda"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reg]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="689" y="2" width="112" height="20" uuid="5f8aca0e-1d02-4fd4-bf79-b8d2d49efd03"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Perawatan]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="22" width="801" height="1" uuid="84023bab-a101-4704-8e9d-4f8aebfc9457"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="89" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="31" width="95" height="20" uuid="9fc9cb84-3a7e-4035-bb1d-95beadef0f86"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{poli}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="95" y="31" width="87" height="20" uuid="b2e9c271-df36-4405-a76f-4eca515e5a55"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{cib_pasien}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="183" y="31" width="78" height="20" uuid="15f96112-f9fc-4278-82af-4aecc671f35d"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{nama}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="262" y="31" width="92" height="20" uuid="47360627-181e-4703-9dc2-5285f44a73ec"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{sex}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="354" y="31" width="70" height="20" uuid="90a3243d-0193-4c60-b552-fca3a6bd8d25"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{umur}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="425" y="31" width="106" height="20" uuid="5f60b259-cd77-4489-932e-efaa1e951a58"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{nama_dokter}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="532" y="31" width="75" height="20" uuid="d6e3a04d-259d-481a-98fe-31c9386829ff"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{tgl_rm}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="609" y="31" width="79" height="20" uuid="1599db96-6aa5-4d43-802f-2d6bcc19536b"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{no_upf}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="689" y="31" width="112" height="20" uuid="5bb5988d-31f4-49d9-94ab-7fa519b50851"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{inap_jalan}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
